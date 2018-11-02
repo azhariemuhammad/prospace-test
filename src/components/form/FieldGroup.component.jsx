@@ -1,5 +1,6 @@
 import React from 'react';
 
+import './style.css'
 export class FieldGroup extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +14,7 @@ export class FieldGroup extends React.Component {
 
   doubleInput() {
     return (
-      <div>
+      <div className="wrapper-input">
         <label>{this.props.label}</label>
         <br />
         <span>
@@ -38,7 +39,7 @@ export class FieldGroup extends React.Component {
 
   regulerInput() {
     return (
-      <div>
+      <div className="wrapper-input">
         <label>{this.props.label}</label>
         <br />
         <input 

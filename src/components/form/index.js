@@ -1,5 +1,6 @@
-import {FieldGroup} from './FieldGroup.component'
-
+import { FieldGroup } from './FieldGroup.component'
+import { DropDownMenu } from './DropDownMenu.component'
 export {
-  FieldGroup
+  FieldGroup,
+  DropDownMenu
 }
