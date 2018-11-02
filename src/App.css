@@ -37,3 +37,15 @@ text-decoration: underline;
   width: 960px;
   margin: 0 auto;
 }
+
+.box {
+  padding: 16px;
+  width: 400px;
+  height: 300px;
+}
+
+.btn-submit {
+  background-color: #F2F1EF;
+  color: black;
+  font-size: 12px;
+}
