@@ -47,7 +47,7 @@ export class CreateOffice extends React.Component {
         <div className="title">
           <h1>Create Office</h1>
         </div>
-        <form className="box left" action="">
+        <form action="">
           <FieldGroup
             label="Name:"
             placeholder="name"

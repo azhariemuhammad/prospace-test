@@ -34,7 +34,7 @@ export class CreateCompany extends React.Component {
           <div className="title">
             <h1>Create Company</h1>
           </div>
-          <form className="box left" action="">
+          <form action="">
             <FieldGroup
               label="Name:"
               placeholder="name"

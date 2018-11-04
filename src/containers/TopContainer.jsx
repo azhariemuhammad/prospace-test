@@ -6,11 +6,11 @@ import { CreateOffice } from "../components/create-office/"
 
 export const TopContainer = ({props}) => {
   return (
-        <div className="container">
-          <div className="box left">
+        <div className="wrapper-forms">
+          <div className="box">
             <CreateCompany />
           </div>
-          <div className="box rigth">
+          <div className="box">
             <CreateOffice />
           </div>
         </div>

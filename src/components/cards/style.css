@@ -1,0 +1,11 @@
+.card {
+  border: 1px solid;
+  padding: 8px;
+  margin-bottom: 16px;
+  width: 300px;
+}
+.card-header {
+  padding: 8px;
+  border-bottom: 1px solid;
+  margin-bottom: 8px;
+}
