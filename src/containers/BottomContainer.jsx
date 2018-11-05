@@ -13,6 +13,5 @@ export const BottomContainer = ({props}) => {
         <Card />
       </div>  
     </div>
-    
   );
 };

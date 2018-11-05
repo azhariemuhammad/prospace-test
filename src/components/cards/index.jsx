@@ -20,7 +20,7 @@ export const Card = () => {
           <p className="regular">99999</p>
         </div>
         <div>
-        <p className="title-ligth-grey">Phone:</p>
+          <p className="title-ligth-grey">Phone:</p>
           <p className="regular">+62 080808</p>
         </div>
       </div>
