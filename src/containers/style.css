@@ -8,6 +8,8 @@
 }
 
 .wrapper-forms {
+  border-bottom: 1px solid;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 16px;
 }

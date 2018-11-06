@@ -2,16 +2,10 @@ import React from "react";
 import { Card } from "../components/cards";
 
 import './style.css'
-export const BottomContainer = ({props}) => {
+export const BottomContainer = ({children}) => {
   return (
     <div>
-      <div>
-        <h1>Companies</h1>
-      </div>
-      <div className="wrapper-cards">
-        <Card />
-        <Card />
-      </div>  
+      {children}  
     </div>
   );
 };

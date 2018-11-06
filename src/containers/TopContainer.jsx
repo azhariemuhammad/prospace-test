@@ -1,31 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
-
-import { CreateCompany } from "../components/create-company";
-import { CreateOffice } from "../components/create-office/";
-import {getCompany, getCompanyFailure} from "../actions/company";
-
 import { bindActionCreators } from 'redux'
+
+import * as actionTo from "../actions/company";
+
 export class TopContainer extends React.Component {
   constructor(props) {
     super(props);
     this.doSomething = this.doSomething.bind(this);
   }
 
-  doSomething() {  
-    this.props.dispatch(getCompany());
+  doSomething() { 
+    console.log(this.props)
   }
 
   render() {
     return (
-      <div className="wrapper-forms">
-        <div className="box">
-          <CreateCompany />
-        </div>
-        <div className="box">
-          <CreateOffice />
-        </div>
-        <button onClick={this.doSomething} />
+      <div>
+        {this.props.children}
       </div>
     );
   }
@@ -38,10 +30,11 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = {
-  getCompany
+const mapDispatchToProps = dispatch => {
+  return {
+    getComp: bindActionCreators(actionTo, dispatch)
+  }
 }
-
 export default connect(
   mapStateToProps,
   mapDispatchToProps
