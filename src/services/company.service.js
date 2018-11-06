@@ -9,10 +9,15 @@ export default () => {
       method: 'GET',
       url: '/companies/'
     }),
-    createCompany: ({ data }) => client.request({
+    createCompany: ({ name, address, revenue, phone }) => client.request({
       method: 'POST',
       url: `/companies/`,
-      data
+      data: {
+        name,
+        address,
+        revenue,
+        phone
+      }
     })
   };
 };

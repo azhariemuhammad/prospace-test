@@ -5,8 +5,8 @@ import { FieldGroup } from "../form";
 import "./style.css";
 
 export class CreateCompany extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       name: '',
       address: '',
@@ -25,7 +25,14 @@ export class CreateCompany extends React.Component {
     if (property === 'revenue') {
       this.setState({ revenue: newState })
     }
-    console.log(property, newState)
+    if (property === 'phone') {
+      this.setState({ phone: newState })
+    }
+  }
+
+  handleOnSubmit(e) {
+    e.preventDefault()
+    this.props.handleOnSubmitCompany(this.state)
   }
 
   render() {
@@ -34,7 +41,7 @@ export class CreateCompany extends React.Component {
           <div className="title">
             <h1>Create Company</h1>
           </div>
-          <form action="">
+          <form onSubmit={(e) => this.handleOnSubmit(e)}>
             <FieldGroup
               label="Name:"
               placeholder="name"

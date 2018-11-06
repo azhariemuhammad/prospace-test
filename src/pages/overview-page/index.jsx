@@ -1,6 +1,6 @@
 import React from "react";
 
-import { OverviewContainer } from '../../containers/OverviewContainer'
+import OverviewContainer from '../../containers/OverviewContainer'
 import { Page } from '../page'
 
 import "./style.css";

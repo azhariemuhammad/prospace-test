@@ -1,5 +1,7 @@
 import React from "react";
 
+import { connect } from "react-redux";
+
 import { TopContainer } from './TopContainer'
 import { BottomContainer } from './BottomContainer'
 import { Card } from '../components/cards'
@@ -9,7 +11,8 @@ import { OfficeDetail } from "../components/office-detail/office-detail";
 import { ListOffice } from "../components/list-office/list-office";
 
 import './style.css'
-export const OfficeContainer = ({props}) => {
+export const OfficeContainer = (props) => {
+  console.log(props)
   return (
     <div>
       <TopContainer>
@@ -21,3 +24,7 @@ export const OfficeContainer = ({props}) => {
     </div>
   );
 };
+
+
+
+export default OfficeContainer

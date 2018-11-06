@@ -4,13 +4,33 @@ import './style.css'
 export class FieldGroup extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      phone: '',
+      code: ''
+    }
   }
   
-  onTextChanged(event) {
-    console.log(event.target.value)
-    const value = event.target.value
+  onTextChanged(event, param) {
+    const value = event.target.value  
     this.props.callbackParent(value)
   }
+  
+  handlePhoneNumber(event, param) {
+    const value = event.target.value  
+    if (param === 'code') {
+      this.setState({code: value}, this.formatPhoneNumber())
+    } else {
+      this.setState({phone: value}, this.formatPhoneNumber())
+    }
+    
+  }
+
+  formatPhoneNumber() {
+    const number = `(${this.state.code}) ${this.state.phone}`
+    this.props.callbackParent(number)
+  }
+
+
 
   doubleInput() {
     return (
@@ -23,14 +43,14 @@ export class FieldGroup extends React.Component {
             name={this.props.name} 
             value={this.props.name} 
             placeholder={this.props.placeholder}
-            onChange={(e) => this.onTextChanged(e)}
+            onChange={(e) => this.handlePhoneNumber(e, 'code')}
           />
           <input 
             type="text" 
             name={this.props.name} 
             value={this.props.name} 
             placeholder={this.props.placeholder1} 
-            onChange={(e) => this.onTextChanged(e)} 
+            onChange={(e) => this.handlePhoneNumber(e, 'phone')} 
           />
         </span>
       </div>
