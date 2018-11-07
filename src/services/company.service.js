@@ -18,6 +18,10 @@ export default () => {
         revenue,
         phone
       }
+    }),
+    deleteCompany: (id) => client.request({
+      method: 'DELETE',
+      url: `/companies/${id}`
     })
   };
 };

@@ -2,12 +2,17 @@ import React from 'react';
 
 import './style.css'
 
-export const Card = ({ name, address, revenue, phone }) => {
+export const Card = ({ name, address, revenue, phone, id }) => {
+
+  const removeItem = (e, id) => {
+    console.log(id, e)
+  }  
   return (
     <div className="card">
     <div className="card-header">
       <div className="card-title">
-          { name }
+          <div>{ name }</div>
+          <div onClick={(e) => removeItem(e, id)}>X</div>
       </div>
     </div>
       <div className="card-content">

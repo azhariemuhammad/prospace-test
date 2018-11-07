@@ -18,7 +18,6 @@ export const getCompanyFailure = (error) => {
 }
 
 export const getCompany = () => {
-  console.log('wooowjoijoijo')
   return (dispatch, getState) => {
     return companyService().getCompany().then(res => {
       if (res.status === 200) {
@@ -31,11 +30,20 @@ export const getCompany = () => {
   }
 }
 
+export const createCompanyRequest = (company) => {
+  return {
+    type: types.CREATE_COMPANY_REQUEST,
+    name: company.name,
+    address: company.address,
+    revenue: company.revenue,
+    phone: company.phone
+  }
+}
+
 export const createCompanySuccess = (company) => {
-  console.log('dapat nin ', company)
   return {
     type: types.CREATE_COMPANY_SUCCESS,
-    payload: {company}
+    payload: company
   }
 }
 
@@ -48,13 +56,49 @@ export const createCompanyFailure = (error) => {
 
 export const createCompany = (data) => {
   return (dispatch, getState) => {
+    dispatch(createCompanyRequest(data))
     return companyService().createCompany(data).then((res) => {
       if (res.status === 200) {
         return dispatch(createCompanySuccess(res.data))
       }
     })
     .catch(() => {
-      return dispatch(createCompanyFailure({error: 'Oops! Something went wrong and we couldn\'t get list of companies'}));
+      return dispatch(createCompanyFailure({error: 'Oops! Something went wrong and we couldn\'t create company'}));
+    })
+  }
+}
+
+export const removeCompanyRequest = (id) => {
+  return {
+    type: types.REMOVE_COMPANY_REQUEST,
+    id
+  }
+}
+
+export const removeCompanySuccess = (deletedCompany) => {
+  return {
+    type: types.REMOVE_COMPANY_SUCCESS,
+    payload: deletedCompany
+  }
+}
+
+export const removeCompanyFailure = (error) => {
+  return {
+    type: types.REMOVE_COMPANY_FAILURE,
+    error
+  }
+}
+
+export const removeCompany = (id) => {
+  return (dispatch, getState) => {
+    dispatch(removeCompanyRequest(id))
+    return companyService().removeCompany(id).then((res) => {
+      if (res.status === 200) {
+        return dispatch(removeCompanySuccess(res.data))
+      }
+    })
+    .catch(() => {
+      return dispatch(removeCompanyFailure({error: 'Oops! Something went wrong and we couldn\'t remove company'}));
     })
   }
 }

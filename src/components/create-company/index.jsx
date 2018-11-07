@@ -4,6 +4,13 @@ import { FieldGroup } from "../form";
 
 import "./style.css";
 
+const initiaState = {
+  name: '',
+  address: '',
+  revenue: '',
+  phone: ''
+}
+
 export class CreateCompany extends React.Component {
   constructor(props) {
     super(props);
@@ -33,6 +40,7 @@ export class CreateCompany extends React.Component {
   handleOnSubmit(e) {
     e.preventDefault()
     this.props.handleOnSubmitCompany(this.state)
+    this.setState({name: ''})
   }
 
   render() {

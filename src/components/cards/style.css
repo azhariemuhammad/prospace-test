@@ -9,3 +9,8 @@
   border-bottom: 1px solid;
   margin-bottom: 8px;
 }
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  
+}

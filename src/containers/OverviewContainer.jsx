@@ -49,10 +49,11 @@ class OverviewContainer extends React.Component {
             <h1>Companies</h1>
           </div>
           <div className="wrapper-cards">
-            {this.props.company.map(item => {
+            {this.props.company.map((item, idx) => {
               return (
                 <Card 
-                  key={ item.id } 
+                  key={ idx }
+                  id={ idx }
                   name={ item.name }
                   address={ item.address }
                   revenue={ item.revenue }
@@ -69,6 +70,7 @@ class OverviewContainer extends React.Component {
 
 
 const mapStateToProps = state => {
+  console.log('ini state baru', state)
   return {
     company: state.company.companies
   };
