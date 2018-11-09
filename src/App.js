@@ -22,7 +22,7 @@ class App extends Component {
             <Router>
               <Switch>
                 <Route exact path="/" component={OverviewPage}/>
-                <Route path="/office" component={OfficePage}/>
+                <Route path="/company/:id/office" component={OfficePage}/>
               </Switch>
             </Router>
           </div>

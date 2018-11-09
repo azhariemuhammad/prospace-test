@@ -1,12 +1,15 @@
-import { combineReducers } from 'redux';
 import * as types from '../types';
 
-const createCompany = (state = {}, action) => {
-  console.log('ini createCompany Reducer', action)
+
+const initialState = {
+  companies: []
+}
+
+const createCompany = (state, action) => {
   switch (action.type) {
     case types.CREATE_COMPANY_REQUEST:
-      console.log('fdfjdiofjdofjdofjoi')
       return {
+        id: state.length + 1,
         name: action.name,
         address: action.address,
         revenue: action.revenue,
@@ -17,10 +20,6 @@ const createCompany = (state = {}, action) => {
   }
 }
 
-const initialState = {
-  companies: []
-}
-
 function company(state=initialState, action) {
   switch (action.type) {
     case types.GET_COMPANY_SUCCESS: 
@@ -28,12 +27,14 @@ function company(state=initialState, action) {
     case types.GET_COMPANY_FAILURE:
       return action.payload.error
     case types.CREATE_COMPANY_REQUEST:
-      return {...state, companies: [...state.companies, createCompany(undefined, action)] }
+      return {...state, companies: [...state.companies, createCompany(state.companies, action)] }
     case types.CREATE_COMPANY_SUCCESS:
        return { ...state, companies: action.payload}
-      case types.CREATE_COMPANY_FAILURE:
+    case types.CREATE_COMPANY_FAILURE:
       return action.payload.error
-    default: 
+    case types.REMOVE_COMPANY_SUCCESS:
+      return state.companies.filter(t => t.id !== action.id);
+    default:
       return state
   }
 }

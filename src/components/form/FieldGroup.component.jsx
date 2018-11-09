@@ -6,7 +6,11 @@ export class FieldGroup extends React.Component {
     super(props);
     this.state = {
       phone: '',
-      code: ''
+      code: '',
+      location: {
+        lat: '',
+        long: ''
+      }
     }
   }
   
@@ -15,12 +19,17 @@ export class FieldGroup extends React.Component {
     this.props.callbackParent(value)
   }
   
-  handlePhoneNumber(event, param) {
+  handleInput(event, param) {
+    console.log('ini param', param)
     const value = event.target.value  
     if (param === 'code') {
       this.setState({code: value}, this.formatPhoneNumber())
-    } else {
+    } else if (param === 'number') {
       this.setState({phone: value}, this.formatPhoneNumber())
+    } else if (param === 'latitude') {
+      this.setState({location: {lat: value, long: this.state.location.long}}, this.formatLoc())
+    } else if (param === 'longitude'){
+      this.setState({location: {lat: this.state.location.lat, long: value}}, this.formatLoc())
     }
     
   }
@@ -28,6 +37,11 @@ export class FieldGroup extends React.Component {
   formatPhoneNumber() {
     const number = `(${this.state.code}) ${this.state.phone}`
     this.props.callbackParent(number)
+  }
+
+  formatLoc() {
+    this.props.callbackParent(this.state.location)
+
   }
 
 
@@ -39,18 +53,18 @@ export class FieldGroup extends React.Component {
         <br />
         <span>
           <input 
-            type="text" 
+            type="number" 
             name={this.props.name} 
             value={this.props.name} 
             placeholder={this.props.placeholder}
-            onChange={(e) => this.handlePhoneNumber(e, 'code')}
+            onChange={(e) => this.handleInput(e, this.props.placeholder)}
           />
           <input 
-            type="text" 
+            type="number" 
             name={this.props.name} 
             value={this.props.name} 
             placeholder={this.props.placeholder1} 
-            onChange={(e) => this.handlePhoneNumber(e, 'phone')} 
+            onChange={(e) => this.handleInput(e, this.props.placeholder1)} 
           />
         </span>
       </div>

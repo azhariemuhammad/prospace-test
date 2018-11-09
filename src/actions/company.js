@@ -1,5 +1,5 @@
 import * as types from '../types';
-import { companyService } from '../services';
+import { baseService } from '../services';
 import { dispatch } from 'rxjs/internal/observable/range';
 
 
@@ -19,7 +19,7 @@ export const getCompanyFailure = (error) => {
 
 export const getCompany = () => {
   return (dispatch, getState) => {
-    return companyService().getCompany().then(res => {
+    return baseService().getCompany().then(res => {
       if (res.status === 200) {
         return dispatch(getCompanySuccess(res.data));
       }
@@ -57,8 +57,8 @@ export const createCompanyFailure = (error) => {
 export const createCompany = (data) => {
   return (dispatch, getState) => {
     dispatch(createCompanyRequest(data))
-    return companyService().createCompany(data).then((res) => {
-      if (res.status === 200) {
+    return baseService().createCompany(data).then((res) => {
+      if (res.status === 201) {
         return dispatch(createCompanySuccess(res.data))
       }
     })
@@ -68,17 +68,11 @@ export const createCompany = (data) => {
   }
 }
 
-export const removeCompanyRequest = (id) => {
-  return {
-    type: types.REMOVE_COMPANY_REQUEST,
-    id
-  }
-}
 
-export const removeCompanySuccess = (deletedCompany) => {
+export const removeCompanySuccess = (id) => {
   return {
     type: types.REMOVE_COMPANY_SUCCESS,
-    payload: deletedCompany
+    id
   }
 }
 
@@ -90,11 +84,13 @@ export const removeCompanyFailure = (error) => {
 }
 
 export const removeCompany = (id) => {
+  console.log('action', id)
   return (dispatch, getState) => {
-    dispatch(removeCompanyRequest(id))
-    return companyService().removeCompany(id).then((res) => {
+
+    return baseService().destroyCompany(id).then((res) => {
       if (res.status === 200) {
-        return dispatch(removeCompanySuccess(res.data))
+        return dispatch(removeCompanySuccess(res.data.id))
+        // console.log('hello ', res.data)
       }
     })
     .catch(() => {

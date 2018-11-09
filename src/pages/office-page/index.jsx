@@ -1,6 +1,6 @@
 import React from "react";
 
-import { OfficeContainer } from '../../containers/OfficeContainer'
+import OfficeContainer from '../../containers/OfficeContainer'
 import { Page } from '../page'
 
 import "./style.css";

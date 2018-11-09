@@ -1,1 +1,1 @@
-export { default as companyService } from './company.service';
+export { default as baseService } from './base.service';

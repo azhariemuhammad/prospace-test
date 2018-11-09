@@ -13,10 +13,9 @@ export class CreateOffice extends React.Component {
     super();
     this.state = {
       name: "",
-      lat: "",
-      long: "",
+      location: {},
       startDate: moment(),
-      selectedCompany: ""
+      companyId: 1
     };
     this.handleDateChange = this.handleDateChange.bind(this);
   }
@@ -26,10 +25,10 @@ export class CreateOffice extends React.Component {
       this.setState({ name: newState });
     }
     if (property === "location") {
-      this.setState({ lat: newState.lat, long: newState.long });
+      this.setState({ location: newState});
     }
-    if (property === "selectedCompany") {
-      this.setState({ selectedCompany: newState });
+    if (property === "companyId") {
+      this.setState({ companyId: newState });
     }
     console.log(property, newState);
   }
@@ -40,6 +39,12 @@ export class CreateOffice extends React.Component {
       startDate: date
     });
   }
+  
+  handleOnSubmit(e) {
+    e.preventDefault()
+    this.props.handleOnSubmitOffice(this.state)
+    this.setState({name: ''})
+  }
 
   render() {
     return (
@@ -47,7 +52,7 @@ export class CreateOffice extends React.Component {
         <div className="title">
           <h1>Create Office</h1>
         </div>
-        <form action="">
+        <form onSubmit={(e) => this.handleOnSubmit(e)}>
           <FieldGroup
             label="Name:"
             placeholder="name"
@@ -73,9 +78,9 @@ export class CreateOffice extends React.Component {
           </div>
           <DropDownMenu
             label="Company:"
-            initialValue=""
+            listCompany={this.props.companies}
             callbackParent={newState =>
-              this.onChildChanged("company", newState)
+              this.onChildChanged("companyId", newState)
             }
            />
            <input className="btn-submit" type="submit" value="Create"/>
