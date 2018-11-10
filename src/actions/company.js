@@ -43,7 +43,7 @@ export const createCompanyRequest = (company) => {
 export const createCompanySuccess = (company) => {
   return {
     type: types.CREATE_COMPANY_SUCCESS,
-    payload: company
+    payload: `succes create company`
   }
 }
 
@@ -83,14 +83,21 @@ export const removeCompanyFailure = (error) => {
   }
 }
 
+export const removeCompanyRequest = (id) => {
+  return {
+    type: types.REMOVE_COMPANY_REQUEST,
+    id
+  }
+}
+
 export const removeCompany = (id) => {
   console.log('action', id)
   return (dispatch, getState) => {
-
+    dispatch(removeCompanyRequest(id))
     return baseService().destroyCompany(id).then((res) => {
       if (res.status === 200) {
         return dispatch(removeCompanySuccess(res.data.id))
-        // console.log('hello ', res.data)
+        console.log('hello ', res.data)
       }
     })
     .catch(() => {

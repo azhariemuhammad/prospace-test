@@ -25,15 +25,19 @@ function company(state=initialState, action) {
     case types.GET_COMPANY_SUCCESS: 
       return { ...state, companies: action.payload.companies}
     case types.GET_COMPANY_FAILURE:
-      return action.payload.error
+      alert(action.error.error)
+      return 
     case types.CREATE_COMPANY_REQUEST:
       return {...state, companies: [...state.companies, createCompany(state.companies, action)] }
     case types.CREATE_COMPANY_SUCCESS:
-       return { ...state, companies: action.payload}
+      window.confirm(action.payload)
+      return state
     case types.CREATE_COMPANY_FAILURE:
       return action.payload.error
+    case types.REMOVE_COMPANY_REQUEST:
+    return {...state, companies: state.companies.filter(({id}) => id !== action.id)}
     case types.REMOVE_COMPANY_SUCCESS:
-      return state.companies.filter(t => t.id !== action.id);
+      return state
     default:
       return state
   }
