@@ -10,11 +10,16 @@ function office(state=initialState, action) {
     case types.GET_OFFICE_BY_COMPANY_SUCCESS: 
       return { ...state, offices: action.payload.offices}
     case types.GET_OFFICE_BY_COMPANY_FAILURE:
-      return action.payload.error
+      return action.error.error
     case types.CREATE_OFFICE_SUCCESS:
-       return alert(action.payload)
+      return state
     case types.CREATE_OFFICE_FAILURE:
-      return alert(action.payload.error)
+      alert(action.error)
+      return state
+    case types.REMOVE_OFFICE_REQUEST:
+      return {...state, offices: state.offices.filter(({id}) => id !== action.id)}
+    case types.REMOVE_OFFICE_SUCCESS:
+      return state
     default:
       return state
   }

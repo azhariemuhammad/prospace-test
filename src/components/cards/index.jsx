@@ -2,7 +2,7 @@ import React from 'react';
 
 import './style.css'
 
-export const Card = ({removeItem, name, address, revenue, phone, id }) => {
+export const Card = ({children, removeItem, name, address, revenue, phone, id }) => {
 
   const handleRemoveItem = (e, id) => {
     e.preventDefault()
@@ -16,20 +16,7 @@ export const Card = ({removeItem, name, address, revenue, phone, id }) => {
           <div onClick={(e) => handleRemoveItem(e, id)}>X</div>
       </div>
     </div>
-      <div className="card-content">
-        <div>
-          <p className="title-ligth-grey">Address:</p>
-          <p className="regular">{ address }</p>
-        </div>
-        <div>
-        <p className="title-ligth-grey">Revenue:</p>
-          <p className="regular">{ revenue }</p>
-        </div>
-        <div>
-          <p className="title-ligth-grey">Phone:</p>
-          <p className="regular">{ phone }</p>
-        </div>
-      </div>
+        {children}
     </div>
   )
 }

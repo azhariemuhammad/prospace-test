@@ -1,7 +1,7 @@
 import React from "react";
-
 import { bindActionCreators } from 'redux'; 
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 
 
 import * as actionsCompany from '../actions/company';
@@ -33,10 +33,37 @@ class OverviewContainer extends React.Component {
   }
 
   handleRemoveCompany(id) {
-    console.log('ini parent', id)
-    this.props.actionsCompany.removeCompany(id)
+    if (window.confirm("Are You sure to remove it?")) {
+      this.props.actionsCompany.removeCompany(id)
+    } else {
+      return
+    }
+  }
+
+  cardContent(item) {
+    return (
+      <div className="card-content">
+        <div>
+          <p className="title-ligth-grey">Address:</p>
+          <p className="regular">{ item.address }</p>
+        </div>
+        <div>
+        <p className="title-ligth-grey">Revenue:</p>
+          <p className="regular">{ item.revenue }</p>
+        </div>
+        <div>
+          <p className="title-ligth-grey">Phone:</p>
+          <p className="regular">{ item.phone }</p>
+        </div>
+      </div>
+    )
   }
   
+  noCompany() {
+    return (
+      <p>Ooopss!!!</p>
+    )
+  }
 
   render() {
     return (
@@ -58,23 +85,22 @@ class OverviewContainer extends React.Component {
           <div>
             <h1>Companies</h1>
           </div>
-          <div className="wrapper-cards">
-          
-            {this.props.company.length > 0 && this.props.company.map((item, idx) => {
-              return (
-                <Card 
-                  key={ idx }
-                  id={ item.id }
-                  name={ item.name }
-                  address={ item.address }
-                  revenue={ item.revenue }
-                  phone={ item.phone }
-                  removeItem= {id => this.handleRemoveCompany(id)}
-                />
-              )
-            })}
-          </div>
-        </BottomContainer> 
+            <div className="wrapper-cards">
+              { (this.props.company.length > 0) ? this.props.company.map((item, idx) => {
+                return (
+                  <Link to={`/company/${item.id}/office/`}>
+                    <Card 
+                      key={ idx }
+                      id={ item.id }
+                      name={ item.name }
+                      removeItem= {id => this.handleRemoveCompany(id)}>
+                      {this.cardContent(item)}
+                    </Card>
+                  </Link>
+                )
+              }) : this.noCompany() }
+            </div>
+        </BottomContainer>
       </div>
     );
   }
@@ -82,7 +108,6 @@ class OverviewContainer extends React.Component {
 
 
 const mapStateToProps = state => {
-  console.log('ini state baru', state)
   return {
     company: state.company.companies,
     office: state.office.offices

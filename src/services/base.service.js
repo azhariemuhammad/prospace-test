@@ -36,6 +36,10 @@ export default () => {
         location,
         startDate
       }
+    }),
+    destroyOffice: (officeId, companyId) => client.request({
+      method: 'DELETE',
+      url: `companies/${companyId}/office/${officeId}`
     })
   };
 };

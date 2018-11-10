@@ -21,84 +21,76 @@ export const getOfficeByCompany = (companyId) => {
   return (dispatch, getState) => {
     return baseService().getOfficeByCompany(companyId).then(res => {
       if (res.status === 200) {
-        console.log('ini bro', res.data)
         return dispatch(getOfficeByCompanySuccess(res.data))
       }
     })
+    .catch(() => {
+      return dispatch(getOfficeFailure({error: 'Oops! Something went wrong and we couldn\'t get list of office'}));
+    });
   }
 }
 
 export const createOffice = (data) => {
-  console.log('create office bro', data)
   return (dispatch, getState) => {
     return baseService().createOffice(data).then(res => {
       if (res.status === 201) {
-        return dispatch(createCompanySuccess(res.data.name));
-        console.log('data coy', data)
+        return dispatch(createOfficeSuccess(res.data.name));
       }
     })
     .catch(() => {
-      // return dispatch(getCompanyFailure({error: 'Oops! Something went wrong and we couldn\'t get list of companies'}));
+        return dispatch(createOfficeFailure({error: 'Oops! Something went wrong and we couldn\'t get list of office'}));
     });
   }
 }
 
 
-export const createCompanySuccess = (name) => {
+export const createOfficeSuccess = (name) => {
   return {
     type: types.CREATE_OFFICE_SUCCESS,
     payload: `success add new office: ${name}`
   }
 }
 
-// export const createCompanyFailure = (error) => {
-//   return {
-//     type: types.CREATE_COMPANY_FAILURE,
-//     error
-//   }
-// }
-
-// export const createCompany = (data) => {
-//   return (dispatch, getState) => {
-//     dispatch(createCompanyRequest(data))
-//     return companyService().createCompany(data).then((res) => {
-//       if (res.status === 200) {
-//         return dispatch(createCompanySuccess(res.data))
-//       }
-//     })
-//     .catch(() => {
-//       return dispatch(createCompanyFailure({error: 'Oops! Something went wrong and we couldn\'t create company'}));
-//     })
-//   }
-// }
+export const createOfficeFailure = (error) => {
+  return {
+    type: types.CREATE_OFFICE_FAILURE,
+    error
+  }
+}
 
 
-// export const removeCompanySuccess = (id) => {
-//   return {
-//     type: types.REMOVE_COMPANY_SUCCESS,
-//     id
-//   }
-// }
 
-// export const removeCompanyFailure = (error) => {
-//   return {
-//     type: types.REMOVE_COMPANY_FAILURE,
-//     error
-//   }
-// }
+export const removeOfficeSuccess = (name) => {
+  return {
+    type: types.REMOVE_OFFICE_SUCCESS,
+    payload: `success remove office: ${name}`
+  }
+}
 
-// export const removeCompany = (id) => {
-//   console.log('action', id)
-//   return (dispatch, getState) => {
+export const removeOfficeFailure = (error) => {
+  return {
+    type: types.REMOVE_OFFICE_FAILURE,
+    error
+  }
+}
+export const removeOfficeRequest = (id) => {
+  return {
+    type: types.REMOVE_OFFICE_REQUEST,
+    id
+  }
+}
 
-//     return companyService().destroyCompany(id).then((res) => {
-//       if (res.status === 200) {
-//         return dispatch(removeCompanySuccess(res.data.id))
-//         // console.log('hello ', res.data)
-//       }
-//     })
-//     .catch(() => {
-//       return dispatch(removeCompanyFailure({error: 'Oops! Something went wrong and we couldn\'t remove company'}));
-//     })
-//   }
-// }
+export const removeOffice = (officeId, companyId) => {
+  return (dispatch, getState) => {
+    dispatch(removeOfficeRequest(officeId))
+    return baseService().destroyOffice(officeId, companyId).then((res) => {
+      if (res.status === 200) {
+        return dispatch(removeOfficeSuccess(res.data.name))
+        console.log('hello ', res.data)
+      }
+    })
+    .catch(() => {
+      return dispatch(removeOfficeFailure({error: 'Oops! Something went wrong and we couldn\'t remove company'}));
+    })
+  }
+}

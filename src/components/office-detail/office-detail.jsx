@@ -4,7 +4,7 @@ import './style.css'
 
 export const OfficeDetail= ({company}) => {
   if (company) {
-    const {name, address, revenue, phone} = company.company
+    const {name, address, revenue, phone} = company
     return (
       <div className="office">
       <div className="office-header">

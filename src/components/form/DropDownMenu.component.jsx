@@ -21,7 +21,7 @@ export class DropDownMenu extends React.Component {
           <br/>
           <select onChange={(e) => this.handleSelection(e)}>
             {
-              (this.props.listCompany) && this.props.listCompany.map((item, idx) => {
+              (this.props.listCompany.length > 0) && this.props.listCompany.map((item, idx) => {
                 return (
                     <option key={idx} value={item.id}>{item.name}</option>
                 )
