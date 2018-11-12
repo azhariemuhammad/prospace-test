@@ -1,16 +1,6 @@
 import React from "react";
 
 import { FieldGroup } from "../form";
-import { validate } from '../../utils/validateForm'
-
-
-const initiaState = {
-  name: '',
-  address: '',
-  revenue: '',
-  phone: ''
-}
-
 export class CreateCompany extends React.Component {
   constructor(props) {
     super(props);
@@ -18,13 +8,12 @@ export class CreateCompany extends React.Component {
       name: '',
       address: '',
       revenue: '',
-      number: '',
-      code: '',
+      phone: {},
       errors: {
         name: '',
         address: '',
         revenue: '',
-        phone: '',
+        number: '',
       }
     };
   }
@@ -40,19 +29,17 @@ export class CreateCompany extends React.Component {
       this.setState({ revenue: newState })
     }
     if (property === 'phone') {
-      this.setState({ number: newState.number, code: newState.code })
+      this.setState({ phone: newState })
     }
   }
 
   handleOnSubmit(e) {
     e.preventDefault()
-    this.validatingForm()
-    // console.log(this.formatPhone())
-  }
-
-  formatPhone() {
-    const phone = `(${this.state.code}) ${this.state.number}`
-    return phone
+    if (this.validatingForm()) {
+        this.props.handleOnSubmitCompany(this.state)
+        this.removeFieldInput()
+    }
+    return
   }
 
   validatingForm() {
@@ -64,10 +51,16 @@ export class CreateCompany extends React.Component {
       formIsValid = false
       errors['name'] = 'Cannot be empty'
     } 
-    if (!fields['code'] && (!fields['number'])) {
+    if (!fields['phone'].number) {
       formIsValid = false
       errors['number'] = 'Cannot be empty'
     }
+
+    if (!fields['phone'].code) {
+      formIsValid = false
+      errors['number'] = 'Cannot be empty'
+    }
+
     if (!fields['revenue']) {
       formIsValid = false
       errors['revenue'] = 'Cannot be empty'
@@ -76,6 +69,7 @@ export class CreateCompany extends React.Component {
       formIsValid = false
       errors['address'] = 'Cannot be empty'
     }
+    
 
     this.setState({errors: errors})
     setTimeout(() => {
@@ -84,16 +78,26 @@ export class CreateCompany extends React.Component {
     return formIsValid
   }
 
+  removeFieldInput() { 
+    this.companyFormRef.reset();
+    this.setState({
+      name: '',
+      address: '',
+      revenue: '',
+      phone: {},
+    })
+  }
+
   render() {
-    console.log(this.state.errors.number)
     return (
         <div>
           <div className="title">
             <h1>Create Company</h1>
           </div>
-          <form onSubmit={(e) => this.handleOnSubmit(e)}>
+          <form onSubmit={(e) => this.handleOnSubmit(e)} ref={(el) => this.companyFormRef = el}>
             <FieldGroup
               label="Name:"
+              id="mainInput"
               regularInput={true}
               placeholder="name"
               errors={{'name': this.state.errors.name}}
@@ -121,12 +125,12 @@ export class CreateCompany extends React.Component {
               doubleInput={true}
               placeholder="code"
               placeholder1="number"
-              errors={{'number': this.state.errors.revenue}}
+              errors={{'number': this.state.errors.number}}
               initialValue={this.state.phone}
               callbackParent={(newState) => this.onChildChanged('phone', newState) }
             />
             <p style={{'color': 'red', 'display': (this.message) ? 'black' : 'none'}}>Please fill in all fields</p>
-            <button className="btn-submit" type="submit">Create</button>
+            <input className="btn-submit" type="submit" value="Create"/>
           </form>
         </div>
     );

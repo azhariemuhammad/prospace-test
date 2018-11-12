@@ -2,7 +2,6 @@ import * as types from '../types';
 import { baseService } from '../services';
 
 
-
 export const getOfficeByCompanySuccess = (offices) => {
   return {
     type: types.GET_OFFICE_BY_COMPANY_SUCCESS,
@@ -86,7 +85,6 @@ export const removeOffice = (officeId, companyId) => {
     return baseService().destroyOffice(officeId, companyId).then((res) => {
       if (res.status === 200) {
         return dispatch(removeOfficeSuccess(res.data.name))
-        console.log('hello ', res.data)
       }
     })
     .catch(() => {

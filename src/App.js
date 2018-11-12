@@ -3,13 +3,8 @@ import { Provider } from 'react-redux'
 import { Switch } from 'react-router'
 import {Route, BrowserRouter as Router } from 'react-router-dom';
 
-
-
-
 import store from './store/configureStore'
-
 import './App.css';
-import { Page } from './pages/page';
 import { OverviewPage } from './pages/overview-page';
 import { OfficePage } from './pages/office-page';
 

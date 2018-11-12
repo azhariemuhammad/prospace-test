@@ -1,11 +1,8 @@
 import React from "react";
-
-import { FieldGroup, DropDownMenu } from "../form";
-
-
+import moment from 'moment'
 import "react-datepicker/dist/react-datepicker.css";
 
-
+import { FieldGroup, DropDownMenu } from "../form";
 export class CreateOffice extends React.Component {
   constructor() {
     super();
@@ -13,7 +10,8 @@ export class CreateOffice extends React.Component {
       name: "",
       location: {},
       companyId: 1,
-      startDate: {}
+      startDate: moment(),
+      errors: {}
     };
   }
 
@@ -30,14 +28,51 @@ export class CreateOffice extends React.Component {
     if (property === 'date') {
       this.setState({ startDate: newState });
     }
-    console.log(property, newState);
   }
   
   handleOnSubmit(e) {
     e.preventDefault()
-    this.props.handleOnSubmitOffice(this.state)
-    this.setState({name: ''})
+    if (this.validatingForm()) {
+      this.props.handleOnSubmitOffice(this.state)
+      this.removeFieldInput()
+    }
+    return;
   }
+
+
+  removeFieldInput() { 
+    this.officeFormRef.reset();
+    this.setState({
+      name: "",
+      location: {},
+    })
+  }
+
+  validatingForm() {
+    let fields = this.state
+    let formIsValid = true
+    let errors = {}
+
+    if (!fields['name']) {
+      formIsValid = false
+      errors['name'] = 'Cannot be empty'
+    } 
+    if (!fields['location'].lat) {
+        formIsValid = false
+        errors['location'] = 'Cannot be empty'
+    }
+    if (!fields['location'].long) {
+      formIsValid = false
+      errors['location'] = 'Cannot be empty'
+    }
+
+    this.setState({errors: errors})
+    setTimeout(() => {
+      this.setState({errors: {}})
+    }, 2000)
+    return formIsValid
+  }
+
 
   render() {
     return (
@@ -45,11 +80,12 @@ export class CreateOffice extends React.Component {
         <div className="title">
           <h1>Create Office</h1>
         </div>
-        <form onSubmit={(e) => this.handleOnSubmit(e)}>
+        <form onSubmit={(e) => this.handleOnSubmit(e)} ref={(el) => this.officeFormRef = el}>
           <FieldGroup
             label="Name:"
             placeholder="name"
             regularInput={true}
+            errors={{'name': this.state.errors.name}}
             initialValue={this.state.name}
             callbackParent={newState => this.onChildChanged("name", newState)}
           />
@@ -59,6 +95,7 @@ export class CreateOffice extends React.Component {
             placeholder="latitude"
             placeholder1="longitude"
             initialValue=""
+            errors={{'longitude': this.state.errors.location}}
             callbackParent={newState =>
               this.onChildChanged("location", newState)
             }

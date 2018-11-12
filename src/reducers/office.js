@@ -12,6 +12,7 @@ function office(state=initialState, action) {
     case types.GET_OFFICE_BY_COMPANY_FAILURE:
       return action.error.error
     case types.CREATE_OFFICE_SUCCESS:
+      window.confirm(action.payload)
       return state
     case types.CREATE_OFFICE_FAILURE:
       alert(action.error)

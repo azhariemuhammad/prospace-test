@@ -1,15 +1,9 @@
 import React from 'react';
 
-
 export class DropDownMenu extends React.Component {
-  constructor(props) {
-    super(props);
-
-  }
-
+  
   handleSelection(event) {
     const value = event.target.value
-    console.log(value)
     this.props.callbackParent(value)
   }
 

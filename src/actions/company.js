@@ -1,6 +1,5 @@
 import * as types from '../types';
 import { baseService } from '../services';
-import { dispatch } from 'rxjs/internal/observable/range';
 
 
 export const getCompanySuccess = (companies) => {
@@ -55,6 +54,7 @@ export const createCompanyFailure = (error) => {
 }
 
 export const createCompany = (data) => {
+  data.phone = formatPhone(data.phone)
   return (dispatch, getState) => {
     dispatch(createCompanyRequest(data))
     return baseService().createCompany(data).then((res) => {
@@ -91,17 +91,21 @@ export const removeCompanyRequest = (id) => {
 }
 
 export const removeCompany = (id) => {
-  console.log('action', id)
   return (dispatch, getState) => {
     dispatch(removeCompanyRequest(id))
     return baseService().destroyCompany(id).then((res) => {
       if (res.status === 200) {
         return dispatch(removeCompanySuccess(res.data.id))
-        console.log('hello ', res.data)
       }
     })
     .catch(() => {
       return dispatch(removeCompanyFailure({error: 'Oops! Something went wrong and we couldn\'t remove company'}));
     })
   }
+}
+
+
+const formatPhone = (state) => {
+  const phone = `(${state.code}) ${state.number}`
+  return phone
 }

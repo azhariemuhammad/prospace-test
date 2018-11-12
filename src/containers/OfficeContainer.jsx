@@ -1,18 +1,12 @@
 import React from "react";
-
-
 import { bindActionCreators } from 'redux'; 
 import { connect } from "react-redux";
 
 import * as actionsOffice from '../actions/office'
 import * as actionsCompany from '../actions/company'
 
-
 import { TopContainer } from './TopContainer'
 import { BottomContainer } from './BottomContainer'
-import { Card } from '../components/cards'
-import { CreateCompany } from "../components/create-company";
-import { CreateOffice } from "../components/create-office/";
 import { OfficeDetail } from "../components/office-detail/office-detail";
 import { ListOffice } from "../components/list-office/list-office";
 

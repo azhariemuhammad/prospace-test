@@ -1,6 +1,4 @@
 import axios from 'axios';
-
-
 class RestApiClient {
   constructor(config) {
     this.client = axios.create(config);

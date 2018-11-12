@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 
-
 import * as actionsCompany from '../actions/company';
 import * as actionsOffice from '../actions/office'
 
@@ -15,10 +14,6 @@ import { CreateOffice } from "../components/create-office/";
 
 import './style.css'
 class OverviewContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    
-  }
 
   componentDidMount() {
     this.props.actionsCompany.getCompany()
@@ -61,7 +56,7 @@ class OverviewContainer extends React.Component {
   
   noCompany() {
     return (
-      <p>Ooopss!!!</p>
+      <p>Ooopss!!! There's no Company created yet </p>
     )
   }
 
@@ -88,9 +83,9 @@ class OverviewContainer extends React.Component {
             <div className="grid">
               { (this.props.company.length > 0) ? this.props.company.map((item, idx) => {
                 return (
-                  <Link to={`/company/${item.id}/office/`}>
+                  <Link to={`/company/${item.id}/office/`} key={item.id}>
                     <Card 
-                      key={ idx }
+                      key={ item.id }
                       id={ item.id }
                       name={ item.name }
                       removeItem= {id => this.handleRemoveCompany(id)}>
