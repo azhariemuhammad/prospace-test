@@ -38,14 +38,12 @@ class OfficeContainer extends React.Component {
 
   getCompany(companyId) {
     this.props.actionsCompany.getCompany(companyId)
-    console.log(this.props.company)
   }
   
   render() {
-    console.log(this.props.office)
     return (
       <div>
-        <TopContainer>
+        <TopContainer height="270px">
           <OfficeDetail company={this.props.company[0]} />
         </TopContainer>
         <BottomContainer>
@@ -60,7 +58,6 @@ class OfficeContainer extends React.Component {
 
 
 const mapStateToProps = state => {
-  console.log('ini state baru di office', state)
   return {
     office: state.office.offices,
     company: state.company.companies

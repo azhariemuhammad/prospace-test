@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './style.css'
 
@@ -13,7 +14,7 @@ export const OfficeDetail= ({company}) => {
         </div>
       </div>
         <div className="office-content">
-          <div>
+          <div className="office-detail">
             <p className="title-ligth-grey">Address:</p>
             <p className="regular">{ address }</p>
           </div>
@@ -25,12 +26,15 @@ export const OfficeDetail= ({company}) => {
             <p className="title-ligth-grey">Phone:</p>
             <p className="regular">{ phone }</p>
           </div>
+          <div>
+            <Link className="btn-navigate" to="/">Back to Overview</Link>
+          </div>
         </div>
       </div>
     )
   } else {
     return (
-      <div>
+      <div className="center">
         Loading...
       </div>
     )

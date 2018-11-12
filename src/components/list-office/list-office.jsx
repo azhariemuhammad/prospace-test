@@ -32,9 +32,9 @@ export const ListOffice= ({offices, callbackParent}) => {
 
 
 
-  if (offices) {
+  if (offices.length > 0) {
     return (
-      <div className="wrapper-cards">
+      <div className="wrapper-cards grid">
         { offices.map((item, idx) => {
           return (
             <Card 
@@ -50,8 +50,8 @@ export const ListOffice= ({offices, callbackParent}) => {
     )
   } else {
     return (
-      <div>
-        loading...
+      <div className="center">
+        There's no office created yet!!!
       </div>
     )
   }

@@ -15,7 +15,7 @@ export class TopContainer extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="wrapper-forms" style={{'height': this.props.height}}>
         {this.props.children}
       </div>
     );

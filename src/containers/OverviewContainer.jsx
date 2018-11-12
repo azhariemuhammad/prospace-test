@@ -68,24 +68,24 @@ class OverviewContainer extends React.Component {
   render() {
     return (
       <div>
-        <TopContainer className="wrapper-form">
+        <TopContainer height="350px">
           <div className="flex-around">
             <div className="box">
                 <CreateCompany handleOnSubmitCompany={newState => this.handleSubmitCompany(newState)}/>
             </div>
+            <hr />
             <div className="box">
               <CreateOffice
                 companies={this.props.company}
                 handleOnSubmitOffice={newState => this.handleSubmitOffice(newState)} />
             </div>
           </div>
-          
         </TopContainer>
         <BottomContainer>
           <div>
             <h1>Companies</h1>
           </div>
-            <div className="wrapper-cards">
+            <div className="grid">
               { (this.props.company.length > 0) ? this.props.company.map((item, idx) => {
                 return (
                   <Link to={`/company/${item.id}/office/`}>

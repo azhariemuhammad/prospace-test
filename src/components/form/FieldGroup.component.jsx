@@ -1,17 +1,23 @@
 import React from 'react';
+import DatePicker from "react-datepicker";
+import moment from 'moment';
 
 import './style.css'
+import "react-datepicker/dist/react-datepicker.css";
 export class FieldGroup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      phone: '',
+      number: '',
       code: '',
+      startDate: moment(),
       location: {
         lat: '',
         long: ''
       }
     }
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.something = this.something.bind(this)
   }
   
   onTextChanged(event, param) {
@@ -20,12 +26,11 @@ export class FieldGroup extends React.Component {
   }
   
   handleInput(event, param) {
-    console.log('ini param', param)
     const value = event.target.value  
     if (param === 'code') {
       this.setState({code: value}, this.formatPhoneNumber())
     } else if (param === 'number') {
-      this.setState({phone: value}, this.formatPhoneNumber())
+      this.setState({number: value}, this.formatPhoneNumber())
     } else if (param === 'latitude') {
       this.setState({location: {lat: value, long: this.state.location.long}}, this.formatLoc())
     } else if (param === 'longitude'){
@@ -34,9 +39,20 @@ export class FieldGroup extends React.Component {
     
   }
 
+  handleDateChange(val) {
+    this.setState({startDate: val}, this.something())
+  }
+  
+  something() {
+    // this.props.callbackParent(this.state.startDate)
+    console.log(this.state.startDate)
+  }
+
   formatPhoneNumber() {
-    const number = `(${this.state.code}) ${this.state.phone}`
-    this.props.callbackParent(number)
+    let phone = {}
+    phone.code = this.state.code
+    phone.number = this.state.number
+    this.props.callbackParent(phone)
   }
 
   formatLoc() {
@@ -45,27 +61,25 @@ export class FieldGroup extends React.Component {
   }
 
 
-
   doubleInput() {
     return (
       <div className="wrapper-input">
         <label>{this.props.label}</label>
         <br />
         <span>
-          <input 
-            type="number" 
-            name={this.props.name} 
-            value={this.props.name} 
+          <input
+            style={{'width': '70px', 'margin-right': '10px'}}
+            type="number"
             placeholder={this.props.placeholder}
             onChange={(e) => this.handleInput(e, this.props.placeholder)}
           />
           <input 
-            type="number" 
-            name={this.props.name} 
-            value={this.props.name} 
+            type="number"
+            style={{'width': '180px'}}
             placeholder={this.props.placeholder1} 
             onChange={(e) => this.handleInput(e, this.props.placeholder1)} 
           />
+          <span style={{color: "red"}}>{(this.props.errors) && this.props.errors[this.props.placeholder1]}</span>
         </span>
       </div>
     )
@@ -81,15 +95,30 @@ export class FieldGroup extends React.Component {
           value={this.props.name}
           placeholder={this.props.placeholder}
           onChange={(e) => this.onTextChanged(e)} />
+          <span style={{color: "red"}}>{(this.props.errors) && this.props.errors[this.props.placeholder]}</span>
       </div>
     );
   }
-  render() {
+
+  datePicker() {
     return (
-      <div>
-        { (!this.props.doubleInput) ? this.regulerInput() : this.doubleInput()}
+      <div className="wrapper-input">
+        <label>{this.props.label}</label>
+            <DatePicker
+              selected={this.state.startDate}
+              onChange={this.handleDateChange}
+            />
       </div>
-    );
+    )
   }
-  
+
+  render() {
+    if (this.props.doubleInput) {
+      return (this.doubleInput())
+    } if (this.props.datePicker) {
+      return this.datePicker()
+    } else {
+      return this.regulerInput()
+    }
+  }
 };

@@ -1,8 +1,0 @@
-.wrapper-cards {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  max-height: 500px;
-  margin: 0 auto;
-  max-width: 100%;
-}

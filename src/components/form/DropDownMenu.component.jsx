@@ -15,11 +15,10 @@ export class DropDownMenu extends React.Component {
 
   render() {
     return (
-      <div>
-        <label>
+        <label className="menu">
           {this.props.label}
           <br/>
-          <select onChange={(e) => this.handleSelection(e)}>
+          <select className="menu" onChange={(e) => this.handleSelection(e)}>
             {
               (this.props.listCompany.length > 0) && this.props.listCompany.map((item, idx) => {
                 return (
@@ -29,7 +28,6 @@ export class DropDownMenu extends React.Component {
             }
           </select>
         </label>
-      </div>
     );
   }
 }

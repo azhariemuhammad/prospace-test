@@ -1,12 +1,10 @@
 import React from "react";
-import DatePicker from "react-datepicker";
-import moment from 'moment';
 
 import { FieldGroup, DropDownMenu } from "../form";
 
 
 import "react-datepicker/dist/react-datepicker.css";
-import "./style.css";
+
 
 export class CreateOffice extends React.Component {
   constructor() {
@@ -14,10 +12,9 @@ export class CreateOffice extends React.Component {
     this.state = {
       name: "",
       location: {},
-      startDate: moment(),
-      companyId: 1
+      companyId: 1,
+      startDate: {}
     };
-    this.handleDateChange = this.handleDateChange.bind(this);
   }
 
   onChildChanged(property, newState) {
@@ -30,14 +27,10 @@ export class CreateOffice extends React.Component {
     if (property === "companyId") {
       this.setState({ companyId: newState });
     }
+    if (property === 'date') {
+      this.setState({ startDate: newState });
+    }
     console.log(property, newState);
-  }
-
-  handleDateChange(date) {
-    console.log(date)
-    this.setState({
-      startDate: date
-    });
   }
   
   handleOnSubmit(e) {
@@ -56,6 +49,7 @@ export class CreateOffice extends React.Component {
           <FieldGroup
             label="Name:"
             placeholder="name"
+            regularInput={true}
             initialValue={this.state.name}
             callbackParent={newState => this.onChildChanged("name", newState)}
           />
@@ -69,13 +63,13 @@ export class CreateOffice extends React.Component {
               this.onChildChanged("location", newState)
             }
           />
-          <div>
-          <label>Office Start Date:</label>
-            <DatePicker
-              selected={this.state.startDate}
-              onChange={this.handleDateChange}
-            />
-          </div>
+          <FieldGroup
+            label="Office Start Date:"
+            datePicker={true}
+            callbackParent={newState =>
+              this.onChildChanged("date", newState)
+            }
+          />
           <DropDownMenu
             label="Company:"
             listCompany={this.props.companies}

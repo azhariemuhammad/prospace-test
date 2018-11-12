@@ -1,5 +1,29 @@
+.office {
+  width: 100%;
+}
+
+.office-title {
+  font-size: 24px;
+}
+
 .office-header {
-  height: 24px;
+  height: 35px;
   border-bottom: 1px solid;
   margin-bottom: 16px;
 }
+
+.office-detail > .title-ligth-grey {
+  font-size: 18px;
+}
+.office-detail > .regular {
+  font-size: 16px;
+}
+
+.btn-navigate {
+  float: right;
+  height: 19px;
+  width: 116px;
+  padding: 8px;
+  border: 1px solid lightgray;
+}
+

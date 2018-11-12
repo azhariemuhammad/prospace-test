@@ -13,7 +13,7 @@ export const Card = ({children, removeItem, name, address, revenue, phone, id })
     <div className="card-header">
       <div className="card-title">
           <div>{ name }</div>
-          <div onClick={(e) => handleRemoveItem(e, id)}>X</div>
+          <button className="btn-close" onClick={(e) => handleRemoveItem(e, id)}>X</button>
       </div>
     </div>
         {children}

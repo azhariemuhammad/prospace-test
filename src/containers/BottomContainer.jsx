@@ -4,7 +4,7 @@ import { Card } from "../components/cards";
 import './style.css'
 export const BottomContainer = ({children}) => {
   return (
-    <div>
+    <div className="wrapper-cards">
       {children}  
     </div>
   );

@@ -2,7 +2,7 @@
   border: 1px solid;
   padding: 8px;
   margin-bottom: 16px;
-  width: 300px;
+  width: 330px;
 }
 .card-header {
   padding: 8px;
@@ -12,5 +12,12 @@
 .card-title {
   display: flex;
   justify-content: space-between;
-  
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.btn-close {
+  background-color: #f0f0f0;
+  border: none;
+  font-size: 16px;
 }
